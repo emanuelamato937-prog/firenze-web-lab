@@ -1,0 +1,36 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+
+    <!-- Main fill: deep indigo → violet → sky blue (135°) -->
+    <linearGradient id="g-bg" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#1E1B4B"/>
+      <stop offset="52%"  stop-color="#6D28D9"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+
+    <!-- Subtle top-left shine so the square reads as a raised surface -->
+    <radialGradient id="g-shine" cx="28%" cy="22%" r="55%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+
+  </defs>
+
+  <!-- Gradient rounded square (rx=22 → ~22 % of 100, premium rounded feel) -->
+  <rect x="6" y="6" width="88" height="88" rx="22" fill="url(#g-bg)"/>
+
+  <!-- Shine overlay -->
+  <rect x="6" y="6" width="88" height="88" rx="22" fill="url(#g-shine)"/>
+
+  <!--
+    Double forward-slash  //
+    Each slash is a parallelogram that leans 16 px to the right over 44 px of vertical travel.
+    Both slashes share the same tilt angle, separated by a 6 px optical gap.
+    Coordinates are centred at x=51, y=50 in the 100×100 canvas.
+  -->
+  <!-- Left slash -->
+  <polygon points="28,74 40,74 56,26 44,26" fill="white" fill-opacity="0.96"/>
+  <!-- Right slash -->
+  <polygon points="46,74 58,74 74,26 62,26" fill="white" fill-opacity="0.96"/>
+
+</svg>

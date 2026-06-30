@@ -1,0 +1,269 @@
+@import "tailwindcss";
+
+/* =====================================================================
+   DARK MODE: class-based strategy for next-themes compatibility
+   ===================================================================== */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* =====================================================================
+   BRAND DESIGN TOKENS
+   ===================================================================== */
+@theme {
+  /* -- Brand Colors -- */
+  --color-fw-navy:       #1A3A6B;
+  --color-fw-navy-hover: #15305C;
+  --color-fw-cyan:       #29ABE2;
+  --color-fw-cyan-light: #00C2E8;
+  --color-fw-gold:       #D4A843;
+  --color-fw-gold-light: #F0C96A;
+
+  /* -- Neutral Palette -- */
+  --color-fw-ink:   #0F1E35;
+  --color-fw-slate: #2C4A6A;
+  --color-fw-steel: #5E7A96;
+  --color-fw-mist:  #B8CAD9;
+  --color-fw-cloud: #EDF2F7;
+  --color-fw-snow:  #F8FAFB;
+
+  /* -- Dark Surfaces -- */
+  --color-fw-abyss: #080F1A;
+  --color-fw-deep:  #0D1B2E;
+  --color-fw-void:  #122340;
+
+  /* -- Violet / Indigo Accent -- */
+  --color-fw-violet:       #7C3AED;
+  --color-fw-violet-light: #A78BFA;
+  --color-fw-indigo:       #4338CA;
+
+  /* -- Brand Shadows -- */
+  --shadow-brand:     0 4px 24px rgb(41 171 226 / 0.15);
+  --shadow-brand-lg:  0 8px 40px rgb(41 171 226 / 0.25);
+  --shadow-gold:      0 4px 24px rgb(212 168 67 / 0.20);
+  --shadow-violet:    0 4px 24px rgb(124 58 237 / 0.25);
+  --shadow-violet-lg: 0 8px 40px rgb(124 58 237 / 0.35);
+  --shadow-glow:      0 0 0 1px rgb(124 58 237 / 0.15), 0 0 32px rgb(124 58 237 / 0.18);
+
+  /* -- Keyframe Animations -- */
+  --animate-gradient-shift: gradient-shift 8s ease infinite;
+  --animate-float:          float 6s ease-in-out infinite;
+}
+
+/* =====================================================================
+   FONTS — @theme inline references Next.js CSS vars set on <html>
+   ===================================================================== */
+@theme inline {
+  --font-sans:    var(--font-inter);
+  --font-display: var(--font-syne);
+  --font-heading: var(--font-jakarta);
+  --font-mono:    var(--font-jetbrains);
+}
+
+/* =====================================================================
+   KEYFRAMES
+   ===================================================================== */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* =====================================================================
+   SEMANTIC THEME TOKENS — applied via CSS vars, not Tailwind utilities
+   ===================================================================== */
+@layer base {
+  :root {
+    --bg:             #F8FAFB;
+    --surface:        #FFFFFF;
+    --surface-raised: #EDF2F7;
+    --text-primary:   #0F1E35;
+    --text-secondary: #2C4A6A;
+    --text-muted:     #5E7A96;
+    --border-color:   #B8CAD9;
+    --ring-color:     #29ABE2;
+  }
+
+  .dark {
+    --bg:             #080F1A;
+    --surface:        #0D1B2E;
+    --surface-raised: #122340;
+    --text-primary:   #EDF2F7;
+    --text-secondary: #B8CAD9;
+    --text-muted:     #5E7A96;
+    --border-color:   #2C4A6A;
+  }
+}
+
+/* =====================================================================
+   BASE STYLES
+   ===================================================================== */
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    /* Offset anchor targets so the fixed navbar doesn't obscure them.
+       Values match the navbar heights: h-16 → h-20 → h-24 → h-28. */
+    scroll-padding-top: 4rem;
+  }
+
+  @media (min-width: 640px)  { html { scroll-padding-top: 5rem; } }
+  @media (min-width: 1024px) { html { scroll-padding-top: 6rem; } }
+  @media (min-width: 1280px) { html { scroll-padding-top: 7rem; } }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: rgb(124 58 237 / 0.22);
+    color: var(--text-primary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* =====================================================================
+   UTILITY CLASSES — brand gradients and semantic color helpers
+   ===================================================================== */
+@layer utilities {
+  .gradient-brand {
+    background: linear-gradient(135deg, #1A3A6B 0%, #29ABE2 100%);
+  }
+
+  .gradient-dark {
+    background: linear-gradient(135deg, #080F1A 0%, #122340 100%);
+  }
+
+  .gradient-gold {
+    background: linear-gradient(135deg, #D4A843 0%, #F0C96A 100%);
+  }
+
+  .gradient-mesh {
+    background:
+      radial-gradient(at 40% 20%, rgb(41 171 226 / 0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, rgb(26 58 107 / 0.2) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, rgb(0 194 232 / 0.1) 0px, transparent 50%);
+  }
+
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #1A3A6B 0%, #29ABE2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-cyan {
+    background: linear-gradient(135deg, #29ABE2 0%, #00C2E8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Violet gradient (indigo → violet) */
+  .gradient-violet {
+    background: linear-gradient(135deg, #4338CA 0%, #7C3AED 100%);
+  }
+
+  /* Full brand spectrum: navy → violet → cyan */
+  .gradient-brand-full {
+    background: linear-gradient(135deg, #1A3A6B 0%, #7C3AED 52%, #29ABE2 100%);
+  }
+
+  /* Icon gradient (matches icon.svg exactly) */
+  .gradient-icon {
+    background: linear-gradient(135deg, #1E1B4B 0%, #6D28D9 52%, #0EA5E9 100%);
+  }
+
+  /* Text gradients */
+  .text-gradient-violet {
+    background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-full {
+    background: linear-gradient(135deg, #29ABE2 0%, #7C3AED 52%, #1A3A6B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Glass effects ── */
+
+  /* Dark surface glass (cards, modals on dark bg) */
+  .glass-dark {
+    background: rgb(255 255 255 / 0.04);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgb(255 255 255 / 0.07);
+  }
+
+  /* Light surface glass (dropdowns, tooltips on light bg) */
+  .glass-light {
+    background: rgb(255 255 255 / 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgb(0 0 0 / 0.06);
+  }
+
+  /* Violet glow border (focus / highlight ring for branded elements) */
+  .ring-violet {
+    box-shadow: 0 0 0 2px rgb(124 58 237 / 0.60);
+  }
+
+  /* Gradient button hover shimmer (apply via group-hover on a ::before pseudo) */
+  .btn-gradient {
+    background: linear-gradient(135deg, #4338CA, #7C3AED, #0EA5E9);
+    background-size: 200% 200%;
+    transition: background-position 0.4s ease, box-shadow 0.2s ease;
+  }
+  .btn-gradient:hover {
+    background-position: right center;
+    box-shadow: var(--shadow-violet-lg);
+  }
+
+  /* Wordmark gradient stops — light mode */
+  .wm-g1 { stop-color: #4338CA; }
+  .wm-g2 { stop-color: #7C3AED; }
+  .wm-g3 { stop-color: #0EA5E9; }
+}
+
+/* Wordmark gradient stops — dark mode (lighter so they pop on dark surfaces) */
+.dark .wm-g1 { stop-color: #818CF8; }
+.dark .wm-g2 { stop-color: #C4B5FD; }
+.dark .wm-g3 { stop-color: #38BDF8; }
+
+/* Growing underline for inline "see more" anchor links */
+.link-underline-grow {
+  position: relative;
+}
+.link-underline-grow::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline-grow:hover::after {
+  width: 100%;
+}
